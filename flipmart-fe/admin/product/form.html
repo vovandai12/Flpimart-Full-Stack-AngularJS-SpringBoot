@@ -1,0 +1,158 @@
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Nhập thông tin sản phẩm</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb p-0 m-0">
+                    <li class="breadcrumb-item"><a href="#home">Flipmart
+                            Admin</a></li>
+                    <li class="breadcrumb-item"><a href="#product">Sản phẩm</a></li>
+                    <li class="breadcrumb-item active">Nhập thông tin</li>
+                </ol>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form id="validate_form_product" data-parsley-validate="">
+                    <div class="form-group row">
+                        <label for="name" class="col-md-4 col-form-label">Tên sản phẩm<span class="text-danger">*</span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="name" id="name"
+                                data-parsley-required-message="Vui lòng nhập tên sản phẩm" data-parsley-required
+                                placeholder="Tên sản phẩm..." ng-model="product.name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="price" class="col-md-4 col-form-label">Giá</label>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">VND</span>
+                                </div>
+                                <input type="number" class="form-control" name="price" id="price" ng-value="50000"
+                                    step="10000" min="50000" ng-model="product.price">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="discount" class="col-md-4 col-form-label">Giảm giá</label>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">%</span>
+                                </div>
+                                <input type="number" class="form-control" name="discount" id="discount" ng-value="0"
+                                    step="0.5" min="0" max="100" ng-model="product.discount">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="quantity" class="col-md-4 col-form-label">Số lượng</label>
+                        <div class="col-md-6">
+                            <input type="number" class="form-control" name="quantity" id="quantity" ng-value="0" min="0"
+                                ng-model="product.quantity">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="description" class="col-md-4 col-form-label">Mô tả<span class="text-danger">*</span>
+                        </label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="description" id="description" rows="5"
+                                data-parsley-required-message="Vui lòng nhập mô tả sản phẩm" data-parsley-required
+                                placeholder="Mô tả sản phẩm..." ng-model="product.description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="startDayDiscount" class="col-md-4 col-form-label">Ngày bắt đầu giảm giá </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="startDayDiscount" id="startDayDiscount"
+                                ng-model="product.startDayDiscount" placeholder="dd/mm/yyyy" data-provide="datepicker"
+                                data-parsley-required-message="Vui lòng chọn ngày bắt đầu giảm giá"
+                                data-parsley-required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="endDayDiscount" class="col-md-4 col-form-label">Ngày hết hạn giảm giá </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="endDayDiscount" id="endDayDiscount"
+                                ng-model="product.endDayDiscount" placeholder="dd/mm/yyyy" data-provide="datepicker"
+                                data-parsley-required-message="Vui lòng chọn ngày hết hạn giảm giá"
+                                data-parsley-required>
+                            <!-- data-parsley-check-date="#startDayDiscount"> -->
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="brand" class="col-md-4 col-form-label">Thương hiệu
+                        </label>
+                        <div class="col-md-6">
+                            <select id="brand" class="form-control" ng-model="product.brandId">
+                                <option ng-repeat="item in listBrand" ng-value="item.id" id="sel-{{$index}}"
+                                    name="sel-{{$index}}">{{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="category" class="col-md-4 col-form-label">Danh mục
+                        </label>
+                        <div class="col-md-3">
+                            <select class="form-control" id="category">
+                                <option value="" selected>Chọn danh mục</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" id="categoryDetail">
+                                <option value="" selected>Chọn mục chi tiết</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="color" class="col-md-4 col-form-label">Màu sắc
+                        </label>
+                        <div class="col-md-6">
+                            <select class="form-control" id="color" multiple="multiple">
+                                <option ng-repeat="item in listColor" ng-click="checkColor(item.id)" ng-value="item.id">
+                                    {{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="color" class="col-md-4 col-form-label">Hình ảnh
+                        </label>
+                        <div class="col-md-6" id="drag-area">
+                            <span class="visible"> Có thể chọn tối đa 12 hình ảnh <span role="button"
+                                    class="btn btn-purple waves-effect waves-light" ng-click="chooseFile()">Mở hộp
+                                    thoại</span>
+                            </span><input hidden type="file" class="file" multiple />
+                        </div>
+                    </div>
+                    <div class="row" id="showImage">
+                        <!-- <div class="col-sm-2 col-lg-2">
+                            <div class="card">
+                                <img class="card-img img-fluid" src="" alt="Card image cap">
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-8 offset-md-4">
+                            <button type="submit" class="btn btn-primary waves-effect waves-light mr-1"
+                                ng-click="submit(product)">
+                                Thêm mới</button>
+                            <a href="#product" class="btn btn-secondary waves-effect waves-light"> Thoát</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- end card -->
+    </div>
+    <!-- end col -->
+</div>
+<!-- End row -->

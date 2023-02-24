@@ -1,0 +1,261 @@
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Danh sách danh mục</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb p-0 m-0">
+                    <li class="breadcrumb-item"><a href="#home">Flipmart
+                            Admin</a></li>
+                    <li class="breadcrumb-item"><a href="#category">Danh mục</a></li>
+                    <li class="breadcrumb-item active">Danh sách</li>
+                </ol>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body table-responsive">
+                <h4 class="m-t-0 header-title mb-2">
+                    <a href="#category-form" class="btn btn-success waves-effect width-md waves-light">Thêm
+                        mới</a>
+                </h4>
+                <div class="row mb-2">
+                    <div class="col-sm-12 col-md-6 form-inline">
+                        <label>Hiễn thị <select class="custom-select custom-select-sm form-control form-control-sm"
+                                ng-model="pageSize">
+                                <option ng-value="10" ng-selected="pageSize == 10">10</option>
+                                <option ng-value="25" ng-selected="pageSize == 25">25</option>
+                                <option ng-value="50" ng-selected="pageSize == 50">50</option>
+                                <option ng-value="100" ng-selected="pageSize == 100">100</option>
+                            </select> danh mục</label>
+                    </div>
+                    <div class="col-sm-12 col-md-6 form-inline d-flex justify-content-end">
+                        <label>Tìm kiếm:<input type="search" class="form-control form-control-sm"
+                                ng-model="search"></label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <table class="table table-striped table-bordered nowrap"
+                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th ng-click="sortData('name')">Tên danh mục <i ng-class="getSortClass('name')"></i>
+                                    </th>
+                                    <th ng-click="sortData('createdDate')">Ngày tạo <i
+                                            ng-class="getSortClass('createdDate')"></i>
+                                    </th>
+                                    <th ng-click="sortData('lastModifiedDate')">Ngày cập nhật <i
+                                            ng-class="getSortClass('lastModifiedDate')"></i>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr
+                                    ng-repeat="item in listCategory | orderBy:sortColumn:reverseSort | limitTo:pageSize:currentPage | filter:search">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.createdDate | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{item.lastModifiedDate | date:'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <button class="btn btn-icon waves-effect waves-light btn-secondary"
+                                            ng-click="view(item)">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-icon waves-effect waves-light btn-purple"
+                                            ng-click="edit(item)">
+                                            <i class="fa fa-wrench"></i>
+                                        </button>
+                                        <button class="btn btn-icon waves-effect waves-light btn-danger"
+                                            ng-click="delete(item)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="">Showing 1
+                            to 10 of 57 entries</div>
+                    </div>
+                    <div class="col-sm-12 col-md-7 d-flex justify-content-end">
+                        <div class="paging_simple_numbers">
+
+                            <ul class="pagination">
+                                <li class="paginate_button page-item" ng-class="{disabled:currentPage === 0}"><button
+                                        ng-click="first()" class="page-link">First</button>
+                                </li>
+                                <li class="paginate_button page-item" ng-class="{disabled:currentPage === 0}"><button
+                                        ng-click="previous()" class="page-link">Previous</button>
+                                </li>
+                                <li class="paginate_button page-item" ng-repeat="page in pages"
+                                    ng-class="{active:currentPage + 1 === page}"><a ng-click="setPage(page)"
+                                        class="page-link">{{page}}</a>
+                                </li>
+                                <li class="paginate_button page-item" ng-class="{disabled:currentPage === pageCount}">
+                                    <button ng-click="next()" class="page-link">Next</button>
+                                </li>
+                                <li class="paginate_button page-item" ng-class="{disabled:currentPage === pageCount}">
+                                    <button ng-click="last()" class="page-link">Last</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="viewModal" class="modal-demo">
+        <button type="button" class="close" onclick="Custombox.modal.close();">
+            <span>&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="custom-modal-title">Thông tin danh mục</h4>
+        <div class="custom-modal-text">
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-borderless mb-0">
+                        <tbody>
+                            <tr>
+                                <th scope="row">ID</th>
+                                <td>{{categoryView.id}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tên danh mục</th>
+                                <td>{{categoryView.name}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Ngày tạo</th>
+                                <td>{{categoryView.createdDate | date:'dd/MM/yyyy'}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Ngày cập nhật</th>
+                                <td>{{categoryView.lastModifiedDate | date:'dd/MM/yyyy'}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Thuộc tính</th>
+                                <td>
+                                    <ol class="mb-0">
+                                        <li ng-repeat="item in listCategoryDetail">
+                                            {{item.name}}
+                                        </li>
+                                    </ol>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary waves-effect"
+                onclick="Custombox.modal.close();">Close</button>
+        </div>
+    </div>
+
+    <div id="editModal" class="modal-demo">
+        <button type="button" class="close" onclick="Custombox.modal.close();">
+            <span>&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="custom-modal-title">Chỉnh sửa người dùng</h4>
+        <form id="validate_form_edit_user" data-parsley-validate="">
+            <div class="custom-modal-text">
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-borderless mb-0">
+                            <tbody>
+                                <input type="hidden" ng-model="userEdit.id">
+                                <tr>
+                                    <th scope="row">Họ và tên</th>
+                                    <td><input type="text" class="form-control" name="fullName" id="fullName"
+                                            data-parsley-required-message="Vui lòng nhập họ và tên"
+                                            data-parsley-required placeholder="Họ và tên..."
+                                            ng-model="userEdit.fullName"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Giới tính</th>
+                                    <td>
+                                        <div class="col-md-3">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="male" name="gender" class="custom-control-input"
+                                                    value="true" required ng-model="userEdit.gender"> <label
+                                                    class="custom-control-label text-xs" for="male">Nam</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="female" name="gender"
+                                                    class="custom-control-input" value="false"
+                                                    ng-model="userEdit.gender"> <label
+                                                    class="custom-control-label text-xs" for="female">Nữ</label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Truy cập</th>
+                                    <td>
+                                        <div class="col-md-3">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="success" name="login"
+                                                    class="custom-control-input" value="true" required
+                                                    ng-model="userEdit.login"> <label
+                                                    class="custom-control-label text-xs" for="success">Cho
+                                                    phép</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="error" name="login" class="custom-control-input"
+                                                    value="false" ng-model="userEdit.login">
+                                                <label class="custom-control-label text-xs" for="error">Ngăn
+                                                    chặn</label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Hình ảnh</th>
+                                    <td>
+                                        <input type="file" class="form-control" id="fileinputuser" name="fileinputuser"
+                                            onchange="angular.element(this).scope().readURL(event)">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td>
+                                        <div class="col-md-4">
+                                            <div class="card">
+                                                <img class="card-img img-fluid" id="blah" src="" alt="Hình ảnh của bạn">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect"
+                    onclick="Custombox.modal.close();">Close</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light" ng-click="submit(userEdit)">Cập
+                    nhật</button>
+            </div>
+        </form>
+    </div>

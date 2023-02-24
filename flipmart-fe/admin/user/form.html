@@ -1,0 +1,162 @@
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box">
+			<h4 class="page-title">Nhập thông tin người dùng</h4>
+			<div class="page-title-right">
+				<ol class="breadcrumb p-0 m-0">
+					<li class="breadcrumb-item"><a href="#home">Flipmart
+							Admin</a></li>
+					<li class="breadcrumb-item"><a href="#user">Người
+							dùng</a></li>
+					<li class="breadcrumb-item active">Nhập thông tin</li>
+				</ol>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-body">
+				<form id="validate_form_user" data-parsley-validate="">
+					<div class="form-group row">
+						<label for="fullName" class="col-md-4 col-form-label">Họ
+							và tên<span class="text-danger">*</span>
+						</label>
+						<div class="col-md-6">
+							<input type="text" class="form-control" name="fullName" id="fullName"
+								data-parsley-required-message="Vui lòng nhập họ và tên" data-parsley-required
+								placeholder="Họ và tên..." ng-model="user.fullName">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="email" class="col-md-4 col-form-label">Email<span
+								class="text-danger">*</span></label>
+						<div class="col-md-6">
+							<input type="email" class="form-control" name="email" id="email"
+								data-parsley-required-message="Vui lòng nhập email" data-parsley-required
+								placeholder="Email..." ng-model="user.email">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="address" class="col-md-4 col-form-label">Địa
+							chỉ</label>
+						<div class="col-md-2">
+							<select class="form-control" id="city">
+								<option value="" selected>Chọn tỉnh thành</option>
+							</select>
+						</div>
+						<div class="col-md-2">
+							<select class="form-control" id="district">
+								<option value="" selected>Chọn quận huyện</option>
+							</select>
+						</div>
+						<div class="col-md-2">
+							<select class="form-control" id="ward">
+								<option value="" selected>Chọn phường xã</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="login" class="col-md-4 col-form-label">Đăng
+							nhập</label>
+						<div class="col-md-3">
+							<div class="custom-control custom-radio">
+								<input type="radio" id="success" name="login" class="custom-control-input" value="true"
+									required ng-model="user.login"> <label class="custom-control-label text-xs"
+									for="success">Cho
+									phép</label>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="custom-control custom-radio">
+								<input type="radio" id="error" name="login" class="custom-control-input" value="false"
+									ng-model="user.login">
+								<label class="custom-control-label text-xs" for="error">Ngăn
+									chặn</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="gender" class="col-md-4 col-form-label">Giới
+							tính</label>
+						<div class="col-md-3">
+							<div class="custom-control custom-radio">
+								<input type="radio" id="male" name="gender" class="custom-control-input" value="true"
+									required ng-model="user.gender"> <label class="custom-control-label text-xs"
+									for="male">Nam</label>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="custom-control custom-radio">
+								<input type="radio" id="female" name="gender" class="custom-control-input" value="false"
+									ng-model="user.gender"> <label class="custom-control-label text-xs"
+									for="female">Nữ</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="role" class="col-md-4 col-form-label">Phân quyền</label>
+						<div class="col-md-3">
+							<div class="custom-control custom-radio">
+								<input type="radio" id="admin" name="role" class="custom-control-input"
+									value="ROLE_ADMIN" required ng-model="user.role"> <label
+									class="custom-control-label text-xs" for="admin">Admin</label>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="custom-control custom-radio">
+								<input type="radio" id="customer" name="role" class="custom-control-input"
+									value="ROLE_USER" ng-model="user.role"> <label class="custom-control-label text-xs"
+									for="customer">Người
+									dùng</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="birthday" class="col-md-4 col-form-label">Ngày
+							sinh </label>
+						<div class="col-md-6">
+							<input type="text" class="form-control" placeholder="dd/mm/yyyy" name="birthday"
+								id="birthday" ng-model="user.birthDay" data-provide="datepicker"
+								data-parsley-check-min-age="18"
+								data-parsley-check-max-age="30" data-parsley-required-message="Vui lòng chọn ngày sinh"
+								data-parsley-required>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="file" class="col-md-4 col-form-label">Hình
+							ảnh</label>
+						<div class="col-md-6">
+							<input type="file" class="form-control" id="fileinputuser" name="fileinputuser"
+								onchange="angular.element(this).scope().readURL(event)">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="addressOld" class="col-md-4 col-form-label"></label>
+						<div class="col-md-4">
+							<div class="card">
+								<img class="card-img img-fluid" id="blah" src="" alt="Hình ảnh của bạn">
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group row mb-0">
+						<div class="col-md-8 offset-md-4">
+							<button type="submit" class="btn btn-primary waves-effect waves-light mr-1"
+								ng-click="submit(user)">
+								Thêm mới</button>
+							<a href="#user" class="btn btn-secondary waves-effect waves-light"> Thoát</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- end card -->
+	</div>
+	<!-- end col -->
+</div>
+<!-- End row -->

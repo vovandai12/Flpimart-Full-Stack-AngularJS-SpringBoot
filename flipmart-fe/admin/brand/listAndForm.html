@@ -1,0 +1,87 @@
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Danh sách thương hiệu</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb p-0 m-0">
+                    <li class="breadcrumb-item"><a href="#home">Flipmart
+                            Admin</a></li>
+                    <li class="breadcrumb-item"><a href="#brand">Thương hiệu</a></li>
+                    <li class="breadcrumb-item active">Danh sách</li>
+                </ol>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-sm-12 col-lg-8">
+        <div class="card">
+            <div class="card-body table-responsive">
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <table class="table table-striped table-bordered nowrap"
+                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tên thương hiệu
+                                    </th>
+                                    <th>Ngày tạo
+                                    </th>
+                                    <th>Ngày cập nhật
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="item in listBrand">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.createdDate | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{item.lastModifiedDate | date:'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <button class="btn btn-icon waves-effect waves-light btn-danger"
+                                            ng-click="delete(item)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <form id="validate_form_brand" data-parsley-validate="">
+                    <div class="form-group row">
+                        <label for="name" class="col-md-4 col-form-label">Tên thương hiệu<span
+                                class="text-danger">*</span></label>
+                        <div class="col-md-6">
+                            <input type="text" required class="form-control" id="name" name="name"
+                                placeholder="Tên thương hiệu..." ng-model="brand.name">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-8 offset-md-4">
+                            <button ng-click="submit(brand)" type="submit"
+                                class="btn btn-primary waves-effect waves-light mr-1">
+                                Thêm mới
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+﻿<div class="row justify-content-center">
+	<div class="col-md-8 col-lg-6 col-xl-5">
+		<div class="card mt-4">
+			<div class="card-header p-4 bg-primary">
+				<h4 class="text-white text-center mb-0 mt-0">Flipmart</h4>
+			</div>
+			<div class="card-body">
+				<form id="validate_form_login" data-parsley-validate="" class="p-2">
+
+					<div class="form-group mb-3">
+						<label for="userName">Tên đăng nhập :</label> <input class="form-control" type="text"
+							id="userName" name="userName" data-parsley-minlength="5"
+							data-parsley-required-message="Vui lòng nhập tên đăng nhập" data-parsley-required
+							placeholder="Tên đăng nhập..." ng-model="user.userName">
+					</div>
+
+					<div class="form-group mb-3">
+						<label for="password">Mật khẩu :</label> <input class="form-control" type="password"
+							id="password" name="password" data-parsley-minlength="10"
+							data-parsley-required-message="Vui lòng nhập mật khẩu." data-parsley-uppercase="1"
+							data-parsley-lowercase="1" data-parsley-number="1" data-parsley-special="1"
+							data-parsley-required placeholder="Mật khẩu..." ng-model="user.password">
+					</div>
+
+					<div class="form-group mb-4">
+						<div class="checkbox checkbox-success">
+							<input id="remember" type="checkbox" checked=""> <label for="remember"> Ghi nhớ
+								tôi </label> <a href="#" class="text-muted float-right">Quên mật khẩu?</a>
+						</div>
+					</div>
+
+					<div class="form-group row text-center mt-4 mb-4">
+						<div class="col-12">
+							<button class="btn btn-md btn-block btn-primary waves-effect waves-light" type="submit"
+								ng-click="submit(user)">Đăng
+								nhập</button>
+						</div>
+					</div>
+
+					<div class="form-group row mb-0">
+						<div class="col-sm-12 text-center">
+							<p class="text-muted mb-0">
+								Bạn chưa có tài khoản? <a href="#register" class="text-dark m-l-5"><b>Đăng
+										ký</b></a>
+							</p>
+						</div>
+					</div>
+				</form>
+
+			</div>
+			<!-- end card-body -->
+		</div>
+		<!-- end card -->
+
+		<!-- end row -->
+
+	</div>
+	<!-- end col -->
+</div>
