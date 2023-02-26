@@ -87,7 +87,7 @@ public class ProductController {
 		productRequest.getCategoryId().forEach(Item -> {
 			CategoryDetail categoryDetail = categoryDetailService.findById(Item).get();
 			productCategoryDetailService.saveOrUpdate(new ProductCategoryDetail(productOld, categoryDetail));
-		});
+		 });
 		if (productRequest.getFile().length > 0) {
 			for (MultipartFile multipartFile : productRequest.getFile()) {
 				UUID uuid = UUID.randomUUID();

@@ -2,7 +2,8 @@ package com.example.service.impl;
 
 import java.util.List;
 import java.util.Optional;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import com.example.repository.CategoryRepository;
 import com.example.service.CategoryService;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
@@ -38,5 +39,10 @@ public class CategoryServiceImpl implements CategoryService{
 	public Optional<Category> findById(String id) {
 		return categoryRepository.findById(id);
 	}
-	
+
+	@Override
+	public Page<Category> findAll(Pageable pageable) {
+		return categoryRepository.findAll(pageable);
+	}
+
 }

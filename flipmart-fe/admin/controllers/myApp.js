@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngStorage', 'ui.bootstrap']);
+var app = angular.module('myApp', ['ngRoute', 'ngStorage']);
 app.run(function ($rootScope, $http, $window, $localStorage) {
 
     $rootScope.$on('$routeChangeStart', function () {
@@ -130,6 +130,19 @@ app.run(function ($rootScope, $http, $window, $localStorage) {
             }
         });
     }
+
+    $rootScope.page = function (url, page, size) {
+        return $http({
+            method: "GET",
+            url: $rootScope.baseApi + url + '/page?page=' + page + '&size=' + size,
+            headers: {
+                'Content-Type': 'application/json;',
+                'Access-Control-Allow-Origin': true,
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization': 'Bearer ' + $window.sessionStorage.token
+            }
+        });
+    }
 });
 
 app.config(function ($routeProvider) {
@@ -156,4 +169,45 @@ app.config(function ($routeProvider) {
         .when('/product-form', { templateUrl: '../admin/product/form.html', controller: 'productFormCtrl' })
 
         .otherwise({ redirectTo: '/login' });
+});
+
+app.directive('pagination', function () {
+	return {
+		restrict: 'E',
+		templateUrl: 'fragments/pagination.html',
+		scope: {
+			itemsPerPage: '=',
+			data: '=',
+			currentPage: '=',
+			onPageChange: '&'
+		},
+		link: function (scope) {
+			scope.totalPages = Math.ceil(scope.data.length / scope.itemsPerPage);
+			scope.range = function (start, end) {
+				var res = [];
+				for (var i = start; i <= end; i++) {
+					res.push(i);
+				}
+				return res;
+			};
+			scope.prevPage = function () {
+				if (scope.currentPage > 1) {
+					scope.currentPage--;
+					scope.onPageChange();
+				}
+			};
+			scope.nextPage = function () {
+				if (scope.currentPage < scope.totalPages) {
+					scope.currentPage++;
+					scope.onPageChange();
+				}
+			};
+			scope.setPage = function (page) {
+				if (page >= 1 && page <= scope.totalPages) {
+					scope.currentPage = page;
+					scope.onPageChange();
+				}
+			};
+		}
+	};
 });

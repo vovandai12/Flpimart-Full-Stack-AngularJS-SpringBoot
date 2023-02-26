@@ -1,0 +1,13 @@
+<ul class="pagination">
+    <li class="paginate_button page-item" ng-class="{disabled: currentPage == 1}">
+        <button ng-click="prevPage()" class="page-link">Previous</button>
+    </li>
+
+    <li class="paginate_button page-item" ng-repeat="page in range(1, totalPages)"
+        ng-class="{active: currentPage == page}"><a href ng-click="setPage(page)" class="page-link">{{page}}</a>
+    </li>
+
+    <li class="paginate_button page-item" ng-class="{disabled: currentPage == totalPages}">
+        <button ng-click="nextPage()" class="page-link">Next</button>
+    </li>
+</ul>

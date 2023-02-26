@@ -63,7 +63,7 @@
 
                             <tbody>
                                 <tr
-                                    ng-repeat="item in listCategory | orderBy:sortColumn:reverseSort | limitTo:pageSize:currentPage | filter:search">
+                                    ng-repeat="item in listCategory | orderBy:sortColumn:reverseSort | filter:search">
                                     <td>{{$index+1}}</td>
                                     <td>{{item.name}}</td>
                                     <td>{{item.createdDate | date:'dd/MM/yyyy'}}</td>
@@ -96,24 +96,11 @@
                     <div class="col-sm-12 col-md-7 d-flex justify-content-end">
                         <div class="paging_simple_numbers">
 
-                            <ul class="pagination">
-                                <li class="paginate_button page-item" ng-class="{disabled:currentPage === 0}"><button
-                                        ng-click="first()" class="page-link">First</button>
-                                </li>
-                                <li class="paginate_button page-item" ng-class="{disabled:currentPage === 0}"><button
-                                        ng-click="previous()" class="page-link">Previous</button>
-                                </li>
-                                <li class="paginate_button page-item" ng-repeat="page in pages"
-                                    ng-class="{active:currentPage + 1 === page}"><a ng-click="setPage(page)"
-                                        class="page-link">{{page}}</a>
-                                </li>
-                                <li class="paginate_button page-item" ng-class="{disabled:currentPage === pageCount}">
-                                    <button ng-click="next()" class="page-link">Next</button>
-                                </li>
-                                <li class="paginate_button page-item" ng-class="{disabled:currentPage === pageCount}">
-                                    <button ng-click="last()" class="page-link">Last</button>
-                                </li>
-                            </ul>
+                            <pagination items-per-page="itemsPerPage" 
+                                data="listCategory" 
+                                current-page="currentPage"
+                                on-page-change="loadData()"></pagination>
+
                         </div>
                     </div>
                 </div>
